@@ -18,5 +18,9 @@ def id():
 def layout():
     return render_template("layout.html")
 
+@app.route("/front")
+def front():
+    return render_template("front.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
