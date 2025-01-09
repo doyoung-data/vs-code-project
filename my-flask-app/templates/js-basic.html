@@ -13,14 +13,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> 
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="{{ url_for('static', filename='js/basics.js') }}"></script>
+
 </head>
 
 
 
+
 <body>
+
+
+    <h2>todo 리스트</h2>
+    <div style="width: 900px;">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#todoId</th>
+                <th scope="col">userId</th>
+                <th scope="col">title</th>
+                <th scope="col">completed</th>
+              </tr>
+            </thead>
+            <tbody id="todos">
+              
+              
+            </tbody>
+          </table>
+    </div>
+
+
+
+
+    <div id="todo-id" style="margin-top:200px"></div>
+    <div id="user-id"></div>
+    <div id="title"></div>
+    <div id="completed"></div>
+
+
 
     <input id="inp"/>
     <span id="txt">hello</span>
@@ -28,46 +60,30 @@
         동작
     </button>
 
-
-
     <br/>
 
     <input placeholder="이름" id="name"/>
-    <input placeholder="나이" type="number" id="age"/>
-    <input placeholder="주소" id="address"/>
-    
-    <div style="width: 900;">
+    <input placeholder="나이" type="number"id="age"/>
+    <input placeholder="주소" id="address" readonly/>
+    <button id="save-btn">
+        등록하기
+    </button>
+    <div style="width: 900px;">
         <table class="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">이름</th>
+                <th scope="col">나이</th>
+                <th scope="col">주소</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-              </tr>
+            <tbody id="users">
+              
+              
             </tbody>
           </table>
     </div>
-
 
 
 </body>
