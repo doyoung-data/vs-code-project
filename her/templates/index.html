@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Library</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #181818;
+            color: #eee;
+        }
+        header {
+            background-color: #222;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            text-align: center;
+        }
+        .filters {
+            background-color: #333;
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-bottom: 1px solid #444;
+        }
+        .filters select {
+            background-color: #444;
+            color: #eee;
+            border: none;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .filters select:hover {
+            background-color: #555;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .video-card {
+            background: #222;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .video-card img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+        }
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+        }
+        .video-card h4 {
+            color: #fff;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #222;
+            border-top: 1px solid #444;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Video Library</h1>
+    </header>
+    <div class="filters">
+        <form method="get">
+            <select name="category" onchange="this.form.submit()">
+                <option value="">All Categories</option>
+                {% for category in categories %}
+                <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+            <select name="tag" onchange="this.form.submit()">
+                <option value="">All Tags</option>
+                {% for tag in tags %}
+                <option value="{{ tag }}">{{ tag }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+    <div class="video-grid">
+        {% for video in videos %}
+        <div class="video-card">
+            <a href="/player/{{ video.id }}">
+                <img src="{{ video.thumbnail }}" alt="{{ video.title }}">
+                <h4>{{ video.title }}</h4>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <footer>
+        © 2025 Video Library - All rights reserved.
+    </footer>
+</body>
+</html>

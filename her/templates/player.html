@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ video.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #181818;
+            color: #eee;
+        }
+        header {
+            background-color: #222;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        header a:hover {
+            color: #aaa;
+        }
+        .video-player {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .video-details {
+            padding: 15px;
+            text-align: center;
+        }
+        .video-details h1 {
+            margin: 10px 0;
+            font-size: 22px;
+            color: #fff;
+        }
+        .video-details p {
+            font-size: 14px;
+            color: #aaa;
+        }
+        .related-videos {
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .related-videos h2 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #eee;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+        .video-card {
+            background: #222;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .video-card img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+        }
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+        }
+        .video-card h4 {
+            color: #fff;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/">← Back to Home</a>
+    </header>
+    <div class="video-player">
+        <video controls>
+            <source src="{{ video.file }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-details">
+            <h1>{{ video.title }}</h1>
+            <p>Category: {{ video.category }}</p>
+            <p>Tags: {{ video.tags | join(', ') }}</p>
+        </div>
+    </div>
+    <div class="related-videos">
+        <h2>Related Videos</h2>
+        <div class="video-grid">
+            {% for related_video in related_videos %}
+            <div class="video-card">
+                <a href="/player/{{ related_video.id }}">
+                    <img src="{{ related_video.thumbnail }}" alt="{{ related_video.title }}">
+                    <h4>{{ related_video.title }}</h4>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
