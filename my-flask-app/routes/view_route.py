@@ -13,10 +13,19 @@ def detailTodo():
             todo_id=todo_id
         )
 
+@view_route.route("/house")
+def house():
+    return render_template("house.html")
+
 
 @view_route.route("/js-basic")
 def jsBasic():
     return render_template("js-basic.html")
+
+@view_route.route("/save-user")
+def saveUser():
+    return render_template("save-user.html")
+
 
 @view_route.route("/")
 def home():

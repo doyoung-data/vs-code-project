@@ -1,86 +1,148 @@
-//var, let, const
+
+function fetchTodos(){
 
 
-//var : 재정의 O, 재할당 O
-var a = 10;
-var a =20;
-a = 'aasdsa';
-var a1 = '안녕';
+   $(document).on('click','.todo-box',function(){
 
-console.log(a);
-
-//let : 재정의 X, 재할당 O
-let b = 1;
-b = 2;
-
-//const : 재정의X, 재할당 X, 반드시 초기값
-const serverAdderss = 'http://127.0.0.1:5000';
-
-//여러개 받는 데이터 : 배열(리스트), 오브젝트(딕셔너리)
-var members = ['a','b','c'];
-var one = members[0];
-alert(one);
-
-var man = {
-  name:'철수',
-  age:24,
-  asset:['노트북','펜','폰']
-};
-
-var name = man['name'];
-var name = man.name;
-var phone = man.asset;
+      var todoId = $(this).data('todo-id');
+      location.href='http://127.0.0.1:5000/detail-todo?todoid='+todoId;
+   });
 
 
-// 함수
-
-function add(){
-  var sum = 10 + 20;
-  alert(sum);
-}
-
-add();
-
-function add2(num1, num2){
-  var sum = num1 + num2;
-  
-  return sum;
-}
+   $.ajax({
+      url:'https://jsonplaceholder.typicode.com/todos/',
+      type:'get',
+      data:{},
+      success:function(todos){
+        
+        
 
 
-var r = add2(1,30);
+         $.each(todos, function(index, todo){
+            $('#todos').append(`
+               <tr style="cursor:pointer;" class="todo-box" data-todo-id="${todo.id}">
+                  <th scope="row">${todo.id}</th>
+                  <td>${todo.userId}</td>
+                  <td>${todo.title}</td>
+                  <td>${todo.completed ? '성공' : '실패'}</td>
+               </tr>
+         `);
 
-alert(r)
 
-if(r==100){
-  
-}else if(r==200){
+         });
 
-}else{
+
+        
+
+         
+      },
+      error:function(error){}
+   });
 
 }
 
+$(document).ready(function(){
 
-var users = [
-  {
-    id:'www1231',
-    pw:'1234',
-    nick:'wwww'
-  },
-  {
-    id:'sadpfa',
-    pw:'ajhf',
-    nick:'sad'
-  },
-  {
-    id:'hap',
-    pw:'abchap',
-    nick:'hapgang'
-  }  
-]
+   fetchTodos();
+
+   $.ajax({
+      url:'https://jsonplaceholder.typicode.com/todos/2',
+      type:'get',
+      data:{},
+      success:function(todo){
+         console.log(todo.title);
+         $('#todo-id').html(todo.id);
+         $('#user-id').html(todo.userId);
+         $('#title').html(todo.title);
+         $('#completed').html(todo.completed.toString());
+
+      },
+      error:function(error){}
+   });
 
 
-for (var i=0;i<users.length;i++){
-  var user = users[i];
-  console.log(user.nick);
-}
+
+
+
+
+
+   var index=0;
+
+   $('#save-btn').on('click',function(){
+      var name = $('#name').val();
+      var age = $('#age').val();
+      var address = $('#address').val();
+
+      console.log(name,age,address);
+
+
+      //유효성 검사
+      if(name.length == 0 ){
+         alert('이름을 입력해주세요');
+         return;
+      }
+
+      if(age==0){
+         alert('나이를 입력해주세요');
+         return;
+      }
+
+      if(address.length == 0){
+         alert('주소를 입력해주세요');
+         return;
+      }
+      index++;
+      $('#users').append(`
+               <tr>
+                <th scope="row">${index}</th>
+                <td>${name}</td>
+                <td>${age}</td>
+                <td>${address}</td>
+              </tr>
+      `);
+
+
+      alert('등록완료');
+      $('#name').val('');
+      $('#age').val('');
+      $('#address').val('');
+     
+   });
+
+
+   $('#address').on('click',function(){
+      new daum.Postcode({
+         oncomplete: function(data) {
+             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+             // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+   
+   
+             $('#address').val(data.address);
+         }
+     }).open();
+   
+   });
+
+   
+
+
+
+
+
+
+   $('#my-btn').on('click',function(){
+      //hello -> 안녕
+
+      var v = $('#inp').val();
+      $('#txt')
+      .html(v)
+      .css('color','blue');
+      
+      $('body').css('background',v);
+
+   });
+
+
+});
+
+
