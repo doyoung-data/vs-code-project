@@ -13,9 +13,14 @@ def detailTodo():
             todo_id=todo_id
         )
 
+@view_route.route("/predict")
+def predict():
+    return render_template("predict.html")
+
 @view_route.route("/house")
 def house():
     return render_template("house.html")
+
 
 
 @view_route.route("/js-basic")
